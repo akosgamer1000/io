@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Param, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 import {quotes} from './js';
 import { audit } from 'rxjs';
@@ -44,5 +44,13 @@ export class AppController {
     }
     return{mymap}
   }
-
+  @Get('quotes/:id')
+  @Render("index5")
+  oneQuote(@Param('id') id: string) {
+    return{ quotes:quotes[Number.parseInt( id)-1]}
+  }
+  @Get('delete/:id')
+  deletebased(@Param('id') id: string){
+    
+  }
 }
