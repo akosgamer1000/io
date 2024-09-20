@@ -51,6 +51,19 @@ export class AppController {
   }
   @Get('delete/:id')
   deletebased(@Param('id') id: string){
-    
+      try{
+        
+        delete quotes[Number.parseInt(id)-1]
+        return {message:"sikerült"}
+      }
+      catch{
+        return {message:"nem sikerült"}
+      }
+        
   }
+      
+    
+    
+  
+    
 }
