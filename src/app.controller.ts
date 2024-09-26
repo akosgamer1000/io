@@ -1,7 +1,7 @@
-import { Controller, Get, Param, Render } from '@nestjs/common';
+import { Controller, Get, Param, Query, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 import {quotes} from './js';
-import { audit } from 'rxjs';
+
 
 
 @Controller()
@@ -15,6 +15,14 @@ export class AppController {
       message: this.appService.getHello()
     };
   }
+  @Get('hatterszin')
+  @Render('hatter')
+  háttérszin(@Query('bgcolor') bgcolor:string='blue')
+  {
+      return{ bgcolor};
+  }
+  
+  //határ
   @Get("lista")
   @Render('index2')
   getLista(){
@@ -49,6 +57,7 @@ export class AppController {
   oneQuote(@Param('id') id: string) {
     return{ quotes:quotes[Number.parseInt( id)-1]}
   }
+ 
   @Get('delete/:id')
   deletebased(@Param('id') id: string){
       try{
