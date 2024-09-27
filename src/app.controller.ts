@@ -1,6 +1,9 @@
 import { Controller, Get, Param, Query, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 import {quotes} from './js';
+import { get } from 'http';
+import { elementAt } from 'rxjs';
+import { query } from 'express';
 
 
 
@@ -70,7 +73,46 @@ export class AppController {
       }
         
   }
+  @Get('search')
+  @Render('search')
+  keres(@Query('idéz') idéz:string){
+    let lista:string[] =[];
+    quotes.forEach(element=>{
+      if(element.quote.includes(idéz)){
+        lista.push(element.quote)
+      }
+    })
+    return{lista}
+
+  }
+  @Get('authorRandomForm')
+  @Render('form')
+  Random(){
+
+  }
+
+  @Get('authorRandom')
+  @Render('form2')
+  Ran(@Query('szerzo') szerzo:string){
+      let lista:string[]=[]
       
+      quotes.forEach(element=>{
+        if(element.author==szerzo){
+          lista.push(element.quote)
+         
+        }
+      })
+      let ran=Math.floor(Math.random() * lista.length);
+      return{lista:lista[ran]}
+  }
+  @Get('highligh/:id')
+  @Render('highlight')
+  High(@Param('id') id:string,@Query('szovegresz') szoveg:string){
+    let z="";
+    z=quotes[Number.parseInt(id)].quote
+    z=z.replace(szoveg,"<b>"+szoveg+"</b>")
+    return{z}
+  }   
     
     
   
