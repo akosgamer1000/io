@@ -111,6 +111,7 @@ export class AppController {
     let z="";
     z=quotes[Number.parseInt(id)].quote
     z=z.replace(szoveg,"<b>"+szoveg+"</b>")
+    
     return{z}
   }   
     
